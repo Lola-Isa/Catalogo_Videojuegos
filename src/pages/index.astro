@@ -1,5 +1,9 @@
 ---
-const juegos = [];
+const juegos = [
+  { nombre: "Minecraft", genero: "Sandbox", imagen: "https://sc.filehippo.net/images/t_app-icon-l/p/b276c62c-96bf-11e6-ad7b-00163ec9f5fa/2418235042/minecraft-logo" },
+  { nombre: "FIFA 24", genero: "Deportes", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBwHnW5AYeo5NcjFdvlkJRE1ClbnN6_zMZgA&s" },
+  { nombre: "Call of Duty", genero: "Shooter", imagen: "https://i.pinimg.com/236x/2c/93/7a/2c937a981e324eadb7ba452d4db51612.jpg" },
+];
 ---
 
 <html lang="es">
@@ -10,15 +14,65 @@ const juegos = [];
     <style>
       body {
         font-family: Arial;
-        background: #ffffff;
-        color: black;
         margin: 0;
+        background: white;
+        color: black;
+        transition: 0.3s;
       }
 
       header {
         padding: 20px;
         text-align: center;
-        background: #dcdcdc;
+        background: #eee;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .card {
+        background: #f2f2f2;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.2s;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      body.dark {
+        background: #111;
+        color: white;
+      }
+
+      body.dark header {
+        background: #222;
+      }
+
+      body.dark .card {
+        background: #1e1e1e;
       }
     </style>
   </head>
@@ -26,10 +80,23 @@ const juegos = [];
   <body>
     <header>
       <h1>Catálogo de Videojuegos</h1>
+      <button onclick="toggleDark()">🌙 Modo oscuro</button>
     </header>
 
     <section class="grid">
-      <!-- vacío por ahora -->
+      {juegos.map(juego => (
+        <div class="card">
+          <img src={juego.imagen} alt={juego.nombre} />
+          <h3>{juego.nombre}</h3>
+          <p>{juego.genero}</p>
+        </div>
+      ))}
     </section>
+
+<script is:inline>
+  function toggleDark() {
+    document.body.classList.toggle("dark");
+  }
+</script>
   </body>
 </html>
