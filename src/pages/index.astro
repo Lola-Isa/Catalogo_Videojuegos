@@ -176,6 +176,20 @@ body.dark footer {
   background: #222;
   color: white;
 }
+.dark-cat {
+  position: fixed;  /*marca de agua*/
+  bottom: 20px;
+  right: 20px;
+  width: 120px;
+
+  opacity: 0;          
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+body.dark .dark-cat {
+  opacity: 0.15;       
+}
 .controls {
   display: flex;
   justify-content: center;
@@ -210,7 +224,6 @@ body.dark footer {
   <button onclick="filterGames('Shooter')">Shooter</button>
   <button onclick="filterGames('Simulación')">Simulación</button>
   <button onclick="filterGames('Terror')">Terror</button>
-
   </div>
 
 
@@ -227,7 +240,8 @@ body.dark footer {
 <footer>
   <p>Hecho con Astro + HTML + CSS + JavaScript</p>
 </footer>
-
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkQDwBoEKRkGGsxk_5d73OJH58frbFQppArg&s" class="dark-cat" />
+</body>
 
 <script is:inline>
 function toggleDark() {
