@@ -1,0 +1,51 @@
+---
+// src/pages/registro.astro
+---
+<meta charset="UTF-8"/>
+<section style="max-width: 400px; margin: 50px auto; font-family: sans-serif;">
+  <h2>Crear Cuenta</h2>
+  <form id="register-form" style="display: flex; flex-direction: column; gap: 10px;">
+    <input type="email" name="email" placeholder="Tu email" required />
+    <input type="password" name="password" placeholder="Tu contraseña" required />
+    <button type="submit" style="background: #4f46e5; color: white; border: none; padding: 10px; cursor: pointer;">
+      Registrarse
+    </button>
+  </form>
+  <p id="message" style="margin-top: 15px; color: blue;"></p>
+</section>
+
+<script>
+  import { createClient } from '@supabase/supabase-js'
+
+  // El casting "as string" evita errores de TypeScript
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL as string;
+  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  const form = document.getElementById('register-form') as HTMLFormElement;
+  const messageElement = document.getElementById('message') as HTMLParagraphElement;
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        messageElement.innerText = "Error: " + error.message;
+        messageElement.style.color = "red";
+      } else {
+        messageElement.innerText = "¡Éxito! Revisá tu email para confirmar.";
+        messageElement.style.color = "green";
+        form.reset();
+      }
+    });
+  }
+</script>
