@@ -30,7 +30,6 @@ const juegos = [
   { nombre: "Undertale", genero: "RPG", imagen: "https://upload.wikimedia.org/wikipedia/commons/2/26/Undertale-logo.jpg" },
   { nombre: "Valorant", genero: "Shooter", imagen: "https://wp.logos-download.com/wp-content/uploads/2021/01/Valorant_Logo.png?dl" },
   { nombre: "5D Chess with Multiverse Time Travel", genero: "Estrategia", imagen: "https://assets-prd.ignimgs.com/2022/11/03/5d-chess-button-1667494618665.jpg" }
-
 ];
 ---
 
@@ -38,238 +37,133 @@ const juegos = [
   <head>
     <meta charset="UTF-8" />
     <title>Catálogo de Videojuegos</title>
-
+    
     <style>
-      body {
-        font-family: Arial;
-        margin: 0;
-        background: white;
-        color: black;
+      /* --- TUS ESTILOS ORIGINALES --- */
+      body { font-family: Arial; margin: 0; background: white; color: black; transition: 0.3s; }
+      header { padding: 20px; text-align: center; background: #eee; }
+      h1 { margin: 0; }
+      button { margin-top: 10px; padding: 10px 15px; border: none; border-radius: 10px; cursor: pointer; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 40px; max-width: 1200px; margin: auto; }
+      img { width: 100%; border-radius: 10px; }
+      body.dark { background: #111; color: white; }
+      body.dark header { background: #222; }
+      body.dark .card { background: #1e1e1e; }
+      input { padding: 10px; margin-top: 10px; border-radius: 10px; border: none; width: 200px; background: #eee; }
+      body.dark input { background: #333; color: white; }
+      .card { background: #f2f2f2; padding: 10px; border-radius: 10px; text-align: center; transition: 0.2s; max-width: 220px; margin: auto; }
+      .card:hover { transform: scale(1.03); }
+      .filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px; }
+      .filters button { padding: 8px 12px; border: none; border-radius: 10px; cursor: pointer; background: #444; color: white; }
+      .filters button:hover { background: #666; }
+      .hero { text-align: center; padding: 100px 20px; color: white; background: linear-gradient(180deg, #111, #5b5b5b); }
+      body.dark .hero { background: #111; }
+      .hero h1 { font-size: 32px; margin-bottom: 10px; color:#eee; }
+      .hero p { color: gray; }
+      footer { text-align: center; padding: 30px; background: linear-gradient(90deg, #1b1b1b, #5b5b5b); color: white; margin-top: 50px; }
+      body.dark footer { background: #222; }
+      .dark-cat { position: fixed; bottom: 20px; right: 20px; width: 120px; opacity: 0; pointer-events: none; transition: 0.3s; }
+      body.dark .dark-cat { opacity: 0.15; }
+      .controls { display: flex; justify-content: center; gap: 15px; padding: 10px; }
+
+      /* --- NUEVOS ESTILOS PARA NAVBAR --- */
+      nav {
+        display: flex;
+        justify-content: flex-end;
+        padding: 15px 30px;
+        background: #111;
+        gap: 10px;
+      }
+      .nav-btn {
+        text-decoration: none;
+        color: white;
+        background: #333;
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 14px;
         transition: 0.3s;
       }
-
-      header {
-        padding: 20px;
-        text-align: center;
-        background: #eee;
-      }
-
-      h1 {
-        margin: 0;
-      }
-
-      button {
-        margin-top: 10px;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        padding: 40px;
-        max-width: 1200px;
-        margin: 0;
-      }
-
-      .card {
-        background: #f2f2f2;
-        padding: 10px;
-        border-radius: 10px;
-        text-align: center;
-        transition: 0.2s;
-      }
-
-      .card:hover {
-        transform: scale(1.05);
-      }
-
-      img {
-        width: 100%;
-        border-radius: 10px;
-      }
-
-      body.dark {
-        background: #111;
-        color: white;
-      }
-
-      body.dark header {
-        background: #222;
-      }
-
-      body.dark .card {
-        background: #1e1e1e;
-      }
-
-      input {
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 10px;
-        border: none;
-        width: 200px;
-        }
-
-        .card {
-          background: #f2f2f2;
-          padding: 10px;
-          border-radius: 10px;
-          text-align: center;
-          transition: 0.2s;
-          max-width: 220px;
-          margin: auto;
-          }
-          .card:hover {
-            transform: scale(1.03);
-          }
-          .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px;
-            }
-            .filters button {
-              padding: 8px 12px;
-              border: none;
-              border-radius: 10px;
-              cursor: pointer;
-              background: #444;
-              color: white;
-              }
-              
-              .filters button:hover {
-                background: #666;
-                }
-      .hero {
-  text-align: center;
-  padding: 100px 20px;
-  color: white;
-  background: linear-gradient(180deg, #111, #5b5b5b)
-}
-body.dark .hero {
-  background: #111;
-}
-
-.hero h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color:#eee;
-}
-
-.hero p {
-  color: gray;
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  background: linear-gradient(90deg, #1b1b1b, #5b5b5b);
-  color: white;
-  margin-top: 50px;
-
-}
-body.dark footer {
-  background: #222;
-  color: white;
-}
-.dark-cat {
-  position: fixed;  /*marca de agua*/
-  bottom: 20px;
-  right: 20px;
-  width: 120px;
-
-  opacity: 0;          
-  pointer-events: none;
-  transition: 0.3s;
-}
-
-body.dark .dark-cat {
-  opacity: 0.15;       
-}
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  padding: 30px;
-}
+      .nav-btn:hover { background: #555; }
+      .nav-btn.primary { background: #4f46e5; }
+      .nav-btn.primary:hover { background: #6366f1; }
     </style>
   </head>
 
   <body>
+    <nav>
+      <a href="/login" class="nav-btn">Ingresar</a>
+      <a href="/registro" class="nav-btn primary">Crear Cuenta</a>
+    </nav>
+
     <section class="hero">
-          <h1>Descubrí nuevos videojuegos...</h1>
-          <p>Explorá juegos, filtrá por género y buscá tus favoritos</p>
-          </section>
+      <h1>Descubrí nuevos videojuegos...</h1>
+      <p>Explorá juegos, filtrá por género y buscá tus favoritos</p>
+    </section>
+
     <header>
       <section class="controls">
         <button onclick="toggleDark()">🌙 Modo oscuro</button>
-        <input id= "searchInput" type="text" placeholder="Buscar juego..." />
-</section>
+        <input id="searchInput" type="text" placeholder="Buscar juego..." />
+      </section>
     </header>
+
     <div class="filters">
-  <button onclick="filterGames('all')">Todos</button>
-  <button onclick="filterGames('Acción')">Acción</button>
-  <button onclick="filterGames('Deportes')">Deportes</button>
-  <button onclick="filterGames('Estrategia')">Estrategia</button>
-  <button onclick="filterGames('Indie')">Indie</button>
-  <button onclick="filterGames('Metroidvania')">Metroidvania</button>
-  <button onclick="filterGames('Peleas')">Peleas</button>
-  <button onclick="filterGames('Roguelike')">Roguelike</button>
-  <button onclick="filterGames('RPG')">RPG</button>
-  <button onclick="filterGames('Sandbox')">Sandbox</button>
-  <button onclick="filterGames('Shooter')">Shooter</button>
-  <button onclick="filterGames('Simulación')">Simulación</button>
-  <button onclick="filterGames('Terror')">Terror</button>
-  </div>
-
-
-<section class="grid">
-  {juegos.map(juego => (
-    <div class="card" data-genero={juego.genero}>
-      <img src={juego.imagen} alt={juego.nombre} />
-      <h3>{juego.nombre}</h3>
-      <p>{juego.genero}</p>
+      <button onclick="filterGames('all')">Todos</button>
+      <button onclick="filterGames('Acción')">Acción</button>
+      <button onclick="filterGames('Deportes')">Deportes</button>
+      <button onclick="filterGames('Estrategia')">Estrategia</button>
+      <button onclick="filterGames('Indie')">Indie</button>
+      <button onclick="filterGames('Metroidvania')">Metroidvania</button>
+      <button onclick="filterGames('Peleas')">Peleas</button>
+      <button onclick="filterGames('Roguelike')">Roguelike</button>
+      <button onclick="filterGames('RPG')">RPG</button>
+      <button onclick="filterGames('Sandbox')">Sandbox</button>
+      <button onclick="filterGames('Shooter')">Shooter</button>
+      <button onclick="filterGames('Simulación')">Simulación</button>
+      <button onclick="filterGames('Terror')">Terror</button>
     </div>
-  ))}
-</section>
 
-<footer>
-  <p>Hecho con Astro + HTML + CSS + JavaScript</p>
-</footer>
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkQDwBoEKRkGGsxk_5d73OJH58frbFQppArg&s" class="dark-cat" />
-</body>
+    <section class="grid">
+      {juegos.map(juego => (
+        <div class="card" data-genero={juego.genero}>
+          <img src={juego.imagen} alt={juego.nombre} />
+          <h3>{juego.nombre}</h3>
+          <p>{juego.genero}</p>
+        </div>
+      ))}
+    </section>
 
-<script is:inline>
-function toggleDark() {
-  document.body.classList.toggle("dark");
-  }
-  window.filterGames = function (genero) {
-    const cards = document.querySelectorAll(".card");
+    <footer>
+      <p>Hecho con Astro + HTML + CSS + JavaScript</p>
+    </footer>
 
-    cards.forEach(card => {
-      const tipo = card.dataset.genero;
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkQDwBoEKRkGGsxk_5d73OJH58frbFQppArg&s" class="dark-cat" />
 
-      if (genero === "all" || tipo === genero) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
+    <script is:inline>
+      function toggleDark() {
+        document.body.classList.toggle("dark");
       }
-    });
-  };
+      
+      window.filterGames = function (genero) {
+        const cards = document.querySelectorAll(".card");
+        cards.forEach(card => {
+          const tipo = card.dataset.genero;
+          if (genero === "all" || tipo === genero) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      };
 
-  const input = document.getElementById("searchInput");
-
-  input.addEventListener("input", () => {
-    const value = input.value.toLowerCase();
-
-    document.querySelectorAll(".card").forEach(card => {
-      const text = card.innerText.toLowerCase();
-
-      card.style.display = text.includes(value) ? "block" : "none";
-    });
-  });
-</script>
+      const input = document.getElementById("searchInput");
+      input.addEventListener("input", () => {
+        const value = input.value.toLowerCase();
+        document.querySelectorAll(".card").forEach(card => {
+          const text = card.innerText.toLowerCase();
+          card.style.display = text.includes(value) ? "block" : "none";
+        });
+      });
+    </script>
+  </body>
+</html>
