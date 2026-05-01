@@ -18,26 +18,32 @@
 <script>
   import { createClient } from '@supabase/supabase-js'
 
-  // El casting "as string" evita errores de TypeScript
-  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL as string;
-  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as;
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  const form = document.getElementById('register-form') as HTMLFormElement;
-  const messageElement = document.getElementById('message') as HTMLParagraphElement;
+  const form = document.getElementById('register-form');
+  const messageElement = document.getElementById('message');
 
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+      alert("El js esta funcionando.");
       const formData = new FormData(form);
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
+      const email = formData.get('email');
+      const password = formData.get('password');
 
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
       });
+
+      if (error) {
+        alert("Error de Supabase: " + error.message);
+    } 
+    else {
+        alert("Usuario creado con exito! Ya podés loguearte.");
+    }
 
       if (error) {
         messageElement.innerText = "Error: " + error.message;
