@@ -1,275 +1,556 @@
 ---
-const juegos = [
-  { nombre: "Among Us", genero: "Estrategia", imagen: "https://static.wikia.nocookie.net/videogame/images/8/84/Among_Us.png/revision/latest?cb=20210109024454&path-prefix=es" },
-  { nombre: "ARK: Survival Evolved", genero: "Sandbox", imagen: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/ArkSurvivalEvolved.png/250px-ArkSurvivalEvolved.png" },
-  { nombre: "Bayonetta", genero: "Acción", imagen: "https://assetsio.gnwcdn.com/co6ffy.jpg?width=2048&height=2048&fit=bounds&quality=85&format=jpg&auto=webp" },
-  { nombre: "Call of Duty", genero: "Shooter", imagen: "https://play-lh.googleusercontent.com/9419FhXcPmYegBxVmuNvdtZJTXszPT56aAbF6PLjNGKr_bZXa3_RKPyJ7r595bubJ-0" },
-  { nombre: "Counter Strike 2", genero: "Shooter", imagen: "https://upload.wikimedia.org/wikipedia/en/f/f2/CS2_Cover_Art.jpg" },
-  { nombre: "Cult of the Lamb", genero: "Roguelike", imagen: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Cult_of_the_Lamb_Key_Art.png/250px-Cult_of_the_Lamb_Key_Art.png" },
-  { nombre: "Dead Cells", genero: "Roguelike", imagen: "https://upload.wikimedia.org/wikipedia/en/1/1f/Dead_cells_cover_art.png" },
-  { nombre: "Diablo Immortal", genero: "RPG", imagen: "https://upload.wikimedia.org/wikipedia/en/c/c0/Diablo_Immortal_App_Logo.png" },
-  { nombre: "Fallout", genero: "RPG", imagen: "https://upload.wikimedia.org/wikipedia/en/a/af/Fallout.jpg" },
-  { nombre: "Far Cry Primal", genero: "Shooter", imagen: "https://store-images.s-microsoft.com/image/apps.64306.14079505688681780.9ec50825-311f-45ea-ad4f-9e9011ea0aaa.473ceee0-ea6e-4be1-bbd8-a21e0adbaaf7" },
-  { nombre: "FIFA 24", genero: "Deportes", imagen: "https://images.seeklogo.com/logo-png/49/1/ea-sports-fc-24-logo-png_seeklogo-491416.png" },
-  { nombre: "Five Nights at Freddy's 1", genero: "Terror", imagen: "https://static.wikia.nocookie.net/five-nights-at-freddys-espanol/images/8/8f/Five_Nights_At_Freddy%27s.png/revision/latest?cb=20141120235804&path-prefix=es" },
-  { nombre: "Grand Theft Auto V", genero: "Sandbox", imagen: "https://static.wikia.nocookie.net/esgta/images/1/1b/Car%C3%A1tula_GTA_V.jpg/revision/latest?cb=20130402191528" },
-  { nombre: "Hollow Knight", genero: "Metroidvania", imagen: "https://upload.wikimedia.org/wikipedia/en/d/de/Hollow_Knight_2026_cover_art.jpg" },
-  { nombre: "Minecraft", genero: "Sandbox", imagen: "https://sc.filehippo.net/images/t_app-icon-l/p/b276c62c-96bf-11e6-ad7b-00163ec9f5fa/2418235042/minecraft-logo" },
-  { nombre: "Mortal Kombat 11", genero: "Peleas", imagen: "https://static.wikia.nocookie.net/doblaje/images/7/70/Mortal_Kombat_11.jpeg/revision/latest/thumbnail/width/360/height/360?cb=20190208200355&path-prefix=es" },
-  { nombre: "Resident Evil 4", genero: "Terror", imagen: "https://image.api.playstation.com/vulcan/ap/rnd/202207/2509/85p2Dwh5iDhUzRKe40QeNYh3.png" },
-  { nombre: "Red Dead Redemption 2", genero: "Sandbox", imagen: "https://upload.wikimedia.org/wikipedia/en/thumb/4/44/Red_Dead_Redemption_II.jpg/250px-Red_Dead_Redemption_II.jpg" },
-  { nombre: "REPO", genero: "Indie", imagen: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3241660/1ea445e044a2d5b09cfa8291350b63ebed6e5741/header.jpg?t=1765552338" },
-  { nombre: "Roblox", genero: "Sandbox", imagen: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Roblox_Logo_2025.png" },
-  { nombre: "Silent Hill f", genero: "Terror", imagen: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2947440/7e5d923ac622bd1775ebc9b5d4b5b0a24bf5ed40/header.jpg?t=1770169624" },
-  { nombre: "Stardew Valley", genero: "Simulación", imagen: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/store/software/switch/70010000001801/7aa9c6cf5e7d4cecf481f18b1d7a9d79e7aab85045b22203effb2dda409bc5b7" },
-  { nombre: "Street Fighter 6", genero: "Peleas", imagen: "https://image.api.playstation.com/vulcan/ap/rnd/202211/1407/XFU0aPBvtm3W2od1ZvhByAOv.png" },
-  { nombre: "Subnautica 2", genero: "Terror", imagen: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1962700/ceed43f5d774d84a5578eccaaec6842cb9591667/capsule_616x353.jpg?t=1775746723" },
-  { nombre: "The Last of Us Part I", genero: "Acción", imagen: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0720/eEczyEMDd2BLa3dtkGJVE9Id.png" },
-  { nombre: "Overwatch 2", genero: "Shooter", imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Overwatch_2_text_logo.svg/3840px-Overwatch_2_text_logo.svg.png" },
-  { nombre: "Persona 5 Royal", genero: "RPG", imagen: "https://mundosteam.shop/wp-content/uploads/2023/12/Diseno-sin-titulo-2023-10-22T143420.769-600x600.png" },
-  { nombre: "Undertale", genero: "RPG", imagen: "https://upload.wikimedia.org/wikipedia/commons/2/26/Undertale-logo.jpg" },
-  { nombre: "Valorant", genero: "Shooter", imagen: "https://wp.logos-download.com/wp-content/uploads/2021/01/Valorant_Logo.png?dl" },
-  { nombre: "5D Chess with Multiverse Time Travel", genero: "Estrategia", imagen: "https://assets-prd.ignimgs.com/2022/11/03/5d-chess-button-1667494618665.jpg" }
+import { games, genres } from "../data/games.js";
 
-];
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || "";
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "";
 ---
 
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Catálogo de Videojuegos</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalogo de Videojuegos</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, Helvetica, sans-serif;
+        --background: #f6f7fb;
+        --surface: #ffffff;
+        --surface-soft: #eceff5;
+        --text: #15171c;
+        --muted: #626a78;
+        --primary: #4f46e5;
+        --primary-strong: #3730a3;
+        --danger: #b42318;
+        --border: #d7dce5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial;
         margin: 0;
-        background: white;
-        color: black;
-        transition: 0.3s;
+        background: var(--background);
+        color: var(--text);
+        transition: background 0.2s ease, color 0.2s ease;
       }
 
-      header {
-        padding: 20px;
-        text-align: center;
-        background: #eee;
+      body.dark {
+        color-scheme: dark;
+        --background: #101114;
+        --surface: #191b20;
+        --surface-soft: #252932;
+        --text: #f4f6fb;
+        --muted: #a9b0bd;
+        --border: #353a45;
       }
 
-      h1 {
-        margin: 0;
+      a {
+        color: inherit;
       }
 
+      .topbar {
+        align-items: center;
+        background: #111318;
+        color: #ffffff;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        padding: 14px 24px;
+      }
+
+      .brand {
+        font-weight: 700;
+      }
+
+      .nav-actions {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .session-label {
+        color: #d7dce5;
+        font-size: 14px;
+      }
+
+      .button,
       button {
-        margin-top: 10px;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 10px;
+        align-items: center;
+        background: var(--surface-soft);
+        border: 1px solid transparent;
+        border-radius: 8px;
+        color: var(--text);
         cursor: pointer;
+        display: inline-flex;
+        font: inherit;
+        gap: 8px;
+        justify-content: center;
+        min-height: 40px;
+        padding: 9px 14px;
+        text-decoration: none;
+      }
+
+      .topbar .button,
+      .topbar button {
+        background: #2b303b;
+        color: #ffffff;
+      }
+
+      .button.primary,
+      button.primary {
+        background: var(--primary);
+        color: #ffffff;
+      }
+
+      .button.primary:hover,
+      button.primary:hover {
+        background: var(--primary-strong);
+      }
+
+      .button.ghost,
+      button.ghost {
+        background: transparent;
+        border-color: var(--border);
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #111318, #383c46);
+        color: #ffffff;
+        padding: 72px 24px 42px;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+        line-height: 1.1;
+        margin: 0 auto 12px;
+        max-width: 720px;
+      }
+
+      .hero p {
+        color: #d7dce5;
+        margin: 0 auto;
+        max-width: 640px;
+      }
+
+      .toolbar {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        display: grid;
+        gap: 18px;
+        padding: 22px 24px;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .search {
+        background: var(--surface-soft);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font: inherit;
+        min-height: 40px;
+        min-width: min(320px, 100%);
+        padding: 9px 12px;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      .filter-button.active {
+        background: var(--primary);
+        color: #ffffff;
+      }
+
+      .status {
+        color: var(--muted);
+        font-size: 14px;
+        min-height: 22px;
+        text-align: center;
+      }
+
+      .status.error {
+        color: var(--danger);
+      }
+
+      .layout {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        margin: 0 auto;
+        max-width: 1240px;
+        padding: 32px 24px;
       }
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        padding: 40px;
-        max-width: 1200px;
-        margin: 0;
+        gap: 22px;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      }
+
+      .card,
+      .favorites-panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
       }
 
       .card {
-        background: #f2f2f2;
-        padding: 10px;
-        border-radius: 10px;
-        text-align: center;
-        transition: 0.2s;
+        display: grid;
+        gap: 10px;
+        overflow: hidden;
       }
 
-      .card:hover {
-        transform: scale(1.05);
-      }
-
-      img {
+      .card img {
+        aspect-ratio: 4 / 3;
+        background: var(--surface-soft);
+        object-fit: cover;
         width: 100%;
-        border-radius: 10px;
       }
 
-      body.dark {
-        background: #111;
-        color: white;
+      .card-content {
+        display: grid;
+        gap: 8px;
+        padding: 0 14px 14px;
       }
 
-      body.dark header {
-        background: #222;
+      .card h3 {
+        font-size: 18px;
+        margin: 0;
       }
 
-      body.dark .card {
-        background: #1e1e1e;
+      .card p {
+        color: var(--muted);
+        margin: 0;
       }
 
-      input {
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 10px;
-        border: none;
-        width: 200px;
+      .favorite-button.is-favorite {
+        background: #fee4a3;
+        color: #352400;
+      }
+
+      .favorites-panel {
+        align-self: start;
+        display: grid;
+        gap: 12px;
+        padding: 18px;
+        position: sticky;
+        top: 18px;
+      }
+
+      .favorites-panel h2 {
+        font-size: 20px;
+        margin: 0;
+      }
+
+      .favorites-list {
+        display: grid;
+        gap: 8px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .favorites-list li {
+        background: var(--surface-soft);
+        border-radius: 8px;
+        padding: 9px 10px;
+      }
+
+      .empty {
+        color: var(--muted);
+        margin: 0;
+      }
+
+      footer {
+        background: #111318;
+        color: #ffffff;
+        padding: 28px;
+        text-align: center;
+      }
+
+      @media (max-width: 860px) {
+        .layout {
+          grid-template-columns: 1fr;
         }
 
-        .card {
-          background: #f2f2f2;
-          padding: 10px;
-          border-radius: 10px;
-          text-align: center;
-          transition: 0.2s;
-          max-width: 220px;
-          margin: auto;
-          }
-          .card:hover {
-            transform: scale(1.03);
-          }
-          .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px;
-            }
-            .filters button {
-              padding: 8px 12px;
-              border: none;
-              border-radius: 10px;
-              cursor: pointer;
-              background: #444;
-              color: white;
-              }
-              
-              .filters button:hover {
-                background: #666;
-                }
-      .hero {
-  text-align: center;
-  padding: 100px 20px;
-  color: white;
-  background: linear-gradient(180deg, #111, #5b5b5b)
-}
-body.dark .hero {
-  background: #111;
-}
+        .favorites-panel {
+          position: static;
+        }
+      }
 
-.hero h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color:#eee;
-}
+      @media (max-width: 620px) {
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
 
-.hero p {
-  color: gray;
-}
+        .nav-actions {
+          justify-content: flex-start;
+        }
 
-footer {
-  text-align: center;
-  padding: 30px;
-  background: linear-gradient(90deg, #1b1b1b, #5b5b5b);
-  color: white;
-  margin-top: 50px;
-
-}
-body.dark footer {
-  background: #222;
-  color: white;
-}
-.dark-cat {
-  position: fixed;  /*marca de agua*/
-  bottom: 20px;
-  right: 20px;
-  width: 120px;
-
-  opacity: 0;          
-  pointer-events: none;
-  transition: 0.3s;
-}
-
-body.dark .dark-cat {
-  opacity: 0.15;       
-}
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  padding: 30px;
-}
+        .hero h1 {
+          font-size: 28px;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <nav class="topbar">
+      <span class="brand">Catalogo de Videojuegos</span>
+      <div class="nav-actions">
+        <span id="session-label" class="session-label">Revisando sesion...</span>
+        <a id="login-link" href="/login" class="button">Ingresar</a>
+        <a id="register-link" href="/registro" class="button primary">Crear cuenta</a>
+        <button id="logout-button" class="ghost" type="button" hidden>Cerrar sesion</button>
+      </div>
+    </nav>
+
     <section class="hero">
-          <h1>Descubrí nuevos videojuegos...</h1>
-          <p>Explorá juegos, filtrá por género y buscá tus favoritos</p>
-          </section>
-    <header>
-      <section class="controls">
-        <button onclick="toggleDark()">🌙 Modo oscuro</button>
-        <input id= "searchInput" type="text" placeholder="Buscar juego..." />
-</section>
+      <h1>Descubri nuevos videojuegos y guarda tus favoritos</h1>
+      <p>
+        Busca por nombre, filtra por genero y arma una lista personal para volver a encontrar
+        tus juegos elegidos.
+      </p>
+    </section>
+
+    <header class="toolbar">
+      <section class="controls" aria-label="Controles del catalogo">
+        <button id="dark-mode-button" type="button">Modo oscuro</button>
+        <input id="search-input" class="search" type="search" placeholder="Buscar juego..." />
+      </section>
+
+      <div class="filters" aria-label="Filtros por genero">
+        {
+          genres.map((genre) => (
+            <button
+              class:list={["filter-button", { active: genre === "all" }]}
+              type="button"
+              data-filter={genre}
+            >
+              {genre === "all" ? "Todos" : genre}
+            </button>
+          ))
+        }
+      </div>
+
+      <p id="status-message" class="status">Los favoritos se guardan en la nube al iniciar sesion.</p>
     </header>
-    <div class="filters">
-  <button onclick="filterGames('all')">Todos</button>
-  <button onclick="filterGames('Acción')">Acción</button>
-  <button onclick="filterGames('Deportes')">Deportes</button>
-  <button onclick="filterGames('Estrategia')">Estrategia</button>
-  <button onclick="filterGames('Indie')">Indie</button>
-  <button onclick="filterGames('Metroidvania')">Metroidvania</button>
-  <button onclick="filterGames('Peleas')">Peleas</button>
-  <button onclick="filterGames('Roguelike')">Roguelike</button>
-  <button onclick="filterGames('RPG')">RPG</button>
-  <button onclick="filterGames('Sandbox')">Sandbox</button>
-  <button onclick="filterGames('Shooter')">Shooter</button>
-  <button onclick="filterGames('Simulación')">Simulación</button>
-  <button onclick="filterGames('Terror')">Terror</button>
-  </div>
 
+    <main class="layout">
+      <section id="games-grid" class="grid" aria-label="Lista de videojuegos">
+        {
+          games.map((game) => (
+            <article class="card" data-game-card data-game-id={game.id} data-genre={game.genre}>
+              <img src={game.image} alt={`Portada de ${game.name}`} loading="lazy" />
+              <div class="card-content">
+                <h3>{game.name}</h3>
+                <p>{game.genre}</p>
+                <button class="favorite-button" type="button" data-favorite-button data-game-id={game.id}>
+                  Agregar a favoritos
+                </button>
+              </div>
+            </article>
+          ))
+        }
+      </section>
 
-<section class="grid">
-  {juegos.map(juego => (
-    <div class="card" data-genero={juego.genero}>
-      <img src={juego.imagen} alt={juego.nombre} />
-      <h3>{juego.nombre}</h3>
-      <p>{juego.genero}</p>
-    </div>
-  ))}
-</section>
+      <aside class="favorites-panel" aria-label="Juegos favoritos">
+        <h2>Mis favoritos</h2>
+        <p id="favorites-empty" class="empty">Todavia no agregaste favoritos.</p>
+        <ul id="favorites-list" class="favorites-list"></ul>
+      </aside>
+    </main>
 
-<footer>
-  <p>Hecho con Astro + HTML + CSS + JavaScript</p>
-</footer>
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkQDwBoEKRkGGsxk_5d73OJH58frbFQppArg&s" class="dark-cat" />
-</body>
+    <footer>
+      <p>Hecho con Astro, JavaScript y Supabase</p>
+    </footer>
 
-<script is:inline>
-function toggleDark() {
-  document.body.classList.toggle("dark");
-  }
-  window.filterGames = function (genero) {
-    const cards = document.querySelectorAll(".card");
+    <script define:vars={{ supabaseUrl, supabaseAnonKey, games }}>
+      const LOCAL_STORAGE_KEY = "catalogo-videojuegos-favoritos";
+      const cards = Array.from(document.querySelectorAll("[data-game-card]"));
+      const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+      const favoriteButtons = Array.from(document.querySelectorAll("[data-favorite-button]"));
+      const searchInput = document.getElementById("search-input");
+      const statusMessage = document.getElementById("status-message");
+      const favoritesList = document.getElementById("favorites-list");
+      const favoritesEmpty = document.getElementById("favorites-empty");
+      const sessionLabel = document.getElementById("session-label");
+      const loginLink = document.getElementById("login-link");
+      const registerLink = document.getElementById("register-link");
+      const logoutButton = document.getElementById("logout-button");
+      const darkModeButton = document.getElementById("dark-mode-button");
 
-    cards.forEach(card => {
-      const tipo = card.dataset.genero;
+      let activeGenre = "all";
+      let favoriteIds = [];
+      let currentUser = null;
+      let supabaseClient = null;
 
-      if (genero === "all" || tipo === genero) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
+      function setStatus(message, isError = false) {
+        statusMessage.textContent = message;
+        statusMessage.classList.toggle("error", isError);
       }
-    });
-  };
 
-  const input = document.getElementById("searchInput");
+      function getLocalFavorites() {
+        try {
+          return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+        } catch {
+          return [];
+        }
+      }
 
-  input.addEventListener("input", () => {
-    const value = input.value.toLowerCase();
+      function saveLocalFavorites(ids) {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(ids));
+      }
 
-    document.querySelectorAll(".card").forEach(card => {
-      const text = card.innerText.toLowerCase();
+      function renderCatalog() {
+        const searchValue = searchInput.value.trim().toLowerCase();
 
-      card.style.display = text.includes(value) ? "block" : "none";
-    });
-  });
-</script>
+        cards.forEach((card) => {
+          const genre = card.dataset.genre;
+          const text = card.textContent.toLowerCase();
+          const matchesGenre = activeGenre === "all" || genre === activeGenre;
+          const matchesSearch = text.includes(searchValue);
+          card.hidden = !(matchesGenre && matchesSearch);
+        });
+      }
+
+      function renderFavorites() {
+        const favoriteSet = new Set(favoriteIds);
+        const selectedGames = games.filter((game) => favoriteSet.has(game.id));
+
+        favoriteButtons.forEach((button) => {
+          const isFavorite = favoriteSet.has(button.dataset.gameId);
+          button.classList.toggle("is-favorite", isFavorite);
+          button.textContent = isFavorite ? "Quitar de favoritos" : "Agregar a favoritos";
+          button.setAttribute("aria-pressed", isFavorite ? "true" : "false");
+        });
+
+        favoritesEmpty.hidden = selectedGames.length > 0;
+        favoritesList.innerHTML = selectedGames
+          .map((game) => `<li><strong>${game.name}</strong><br /><span>${game.genre}</span></li>`)
+          .join("");
+      }
+
+      async function loadCloudFavorites() {
+        const { data, error } = await supabaseClient
+          .from("favorites")
+          .select("game_id")
+          .eq("user_id", currentUser.id);
+
+        if (error) {
+          setStatus("No se pudieron cargar los favoritos de Supabase. Se usa guardado local.", true);
+          favoriteIds = getLocalFavorites();
+          return;
+        }
+
+        favoriteIds = data.map((favorite) => favorite.game_id);
+      }
+
+      async function saveCloudFavorite(gameId, shouldSave) {
+        if (!currentUser || !supabaseClient) {
+          saveLocalFavorites(favoriteIds);
+          setStatus("Favoritos guardados solo en este navegador. Inicia sesion para guardarlos en la nube.");
+          return;
+        }
+
+        if (shouldSave) {
+          const { error } = await supabaseClient.from("favorites").insert({
+            user_id: currentUser.id,
+            game_id: gameId,
+          });
+
+          if (error) {
+            setStatus("No se pudo guardar el favorito en Supabase.", true);
+          }
+          return;
+        }
+
+        const { error } = await supabaseClient
+          .from("favorites")
+          .delete()
+          .eq("user_id", currentUser.id)
+          .eq("game_id", gameId);
+
+        if (error) {
+          setStatus("No se pudo quitar el favorito en Supabase.", true);
+        }
+      }
+
+      async function toggleFavorite(gameId) {
+        const isFavorite = favoriteIds.includes(gameId);
+        favoriteIds = isFavorite
+          ? favoriteIds.filter((id) => id !== gameId)
+          : [...favoriteIds, gameId];
+
+        renderFavorites();
+        await saveCloudFavorite(gameId, !isFavorite);
+      }
+
+      async function initializeSession() {
+        if (window.supabase && supabaseUrl && supabaseAnonKey) {
+          supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+          const { data } = await supabaseClient.auth.getUser();
+          currentUser = data.user;
+        }
+
+        if (currentUser) {
+          sessionLabel.textContent = currentUser.email;
+          loginLink.hidden = true;
+          registerLink.hidden = true;
+          logoutButton.hidden = false;
+          await loadCloudFavorites();
+          setStatus("Favoritos sincronizados con Supabase.");
+        } else {
+          sessionLabel.textContent = "Sin sesion";
+          favoriteIds = getLocalFavorites();
+          setStatus("Podes probar favoritos localmente. Para nube, inicia sesion.");
+        }
+
+        renderFavorites();
+      }
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activeGenre = button.dataset.filter;
+          filterButtons.forEach((item) => item.classList.toggle("active", item === button));
+          renderCatalog();
+        });
+      });
+
+      favoriteButtons.forEach((button) => {
+        button.addEventListener("click", () => toggleFavorite(button.dataset.gameId));
+      });
+
+      searchInput.addEventListener("input", renderCatalog);
+
+      darkModeButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+      });
+
+      logoutButton.addEventListener("click", async () => {
+        if (supabaseClient) {
+          await supabaseClient.auth.signOut();
+        }
+        window.location.reload();
+      });
+
+      initializeSession();
+    </script>
+  </body>
+</html>

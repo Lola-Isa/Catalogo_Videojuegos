@@ -7,7 +7,7 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crear cuenta | Catalogo de Videojuegos</title>
+    <title>Ingresar | Catalogo de Videojuegos</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       body {
@@ -87,30 +87,29 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "";
   <body>
     <main class="panel">
       <div>
-        <h1>Crear cuenta</h1>
-        <p>Usa un email y una contrasena para guardar favoritos en la nube.</p>
+        <h1>Ingresar</h1>
+        <p>Inicia sesion para sincronizar tus favoritos con Supabase.</p>
       </div>
 
-      <form id="register-form">
-        <input type="email" name="email" placeholder="Tu email" autocomplete="email" required />
+      <form id="login-form">
+        <input type="email" name="email" placeholder="Email" autocomplete="email" required />
         <input
           type="password"
           name="password"
-          placeholder="Tu contrasena"
-          autocomplete="new-password"
-          minlength="6"
+          placeholder="Contrasena"
+          autocomplete="current-password"
           required
         />
-        <button type="submit">Registrarse</button>
+        <button type="submit">Entrar</button>
       </form>
 
       <p id="message" class="message"></p>
-      <a href="/login">Ya tengo cuenta</a>
+      <a href="/registro">Crear cuenta</a>
       <a href="/">Volver al catalogo</a>
     </main>
 
     <script define:vars={{ supabaseUrl, supabaseAnonKey }}>
-      const form = document.getElementById("register-form");
+      const form = document.getElementById("login-form");
       const message = document.getElementById("message");
 
       function showMessage(text, type) {
@@ -131,12 +130,9 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "";
         const password = formData.get("password");
         const client = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-        const { error } = await client.auth.signUp({
+        const { error } = await client.auth.signInWithPassword({
           email,
           password,
-          options: {
-            emailRedirectTo: window.location.origin,
-          },
         });
 
         if (error) {
@@ -144,8 +140,10 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "";
           return;
         }
 
-        showMessage("Cuenta creada. Si Supabase pide confirmacion, revisa el email.", "success");
-        form.reset();
+        showMessage("Sesion iniciada. Redirigiendo al catalogo...", "success");
+        window.setTimeout(() => {
+          window.location.href = "/";
+        }, 800);
       });
     </script>
   </body>
